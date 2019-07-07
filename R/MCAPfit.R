@@ -72,7 +72,7 @@ MCAPfit <- function(xx, k, projection = 'PCA',
   ## determine optimal projection dimension
   fit_q_opt <- OptDimClusterStability(xx, k = k, method = projection, 
                                       true_labels = true_labels, 
-                                      verbose = verbose, ...)
+                                      verbose = verbose, parallel = parallel, ...)
   
   ## parameter estimation and GMM clustering with optimised target dimension
   fit_gmm <- GMMwrapper(GramPCA(xx, npc = fit_q_opt$q_opt)$zz, 

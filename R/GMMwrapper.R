@@ -41,7 +41,7 @@ GMMwrapper <- function(xx, k, criterion = 'mmdl',
     warning(' GMM-mixglasso: data matrix too large - aborting ...')
     return(list('model_fit' = NA, 'bic' = NA, 'mmdl' = NA, 'aRI' = NA))
   }
-  n_repeats <- 50
+  n_repeats <- 5
   mod_fit_arr <- vector('list',n_repeats)
   mod_results <- dplyr::tibble('bic' = numeric(n_repeats),
                                'mmdl' = numeric(n_repeats),
@@ -57,7 +57,7 @@ GMMwrapper <- function(xx, k, criterion = 'mmdl',
       while(init_count < init_max){
         curr_mod <- tryCatch(nethet::mixglasso(xx, n.comp = k,
                                     lambda = 0, 
-                                    init = 'kmeans', nstart.kmeans = 50,
+                                    init = 'kmeans', nstart.kmeans = 10,
                                     iter.max.kmeans = 10, term = 1e-3,
                                     modelname.hc = 'VVV'), 
                           error=identity)
@@ -80,7 +80,7 @@ GMMwrapper <- function(xx, k, criterion = 'mmdl',
       while(init_count < init_max){
         curr_mod <- tryCatch(nethet::mixglasso(xx, n.comp = k,
                                     lambda = 0, 
-                                    init = 'kmeans.hc', nstart.kmeans = 50,
+                                    init = 'kmeans.hc', nstart.kmeans = 10,
                                     iter.max.kmeans = 10, term = 1e-3,
                                     modelname.hc = 'VVV'), 
                           error=identity)
